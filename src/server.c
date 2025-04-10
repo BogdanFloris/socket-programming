@@ -1,10 +1,12 @@
 /*
 ** server.c -- a stream socket server demo
 */
+#include "get_in_addr.h"
+
 #include <arpa/inet.h>
-#include <netinet/in.h>
 #include <errno.h>
 #include <netdb.h>
+#include <netinet/in.h>
 #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -25,17 +27,6 @@ void sigchld_handler(int s) {
         ;
 
     errno = saved_errno;
-}
-
-/*
- ** get sockaddr for both ipv4 and ipv6
- */
-void *get_in_addr(struct sockaddr *sa) {
-    if (sa->sa_family == AF_INET) {
-        return &(((struct sockaddr_in *)sa)->sin_addr);
-    }
-
-    return &(((struct sockaddr_in6 *)sa)->sin6_addr);
 }
 
 int main() {
